@@ -1,0 +1,41 @@
+//- Diretório: D:\dev\spotify-api-workshop - original\spotify-api-workshop\views\layout.pug
+
+html
+  head
+<<<<<<< HEAD:views/layout.pug
+    title My Spotify API app ✨
+    link(rel='stylesheet', href='/map.css')
+    link(rel='stylesheet', href='/dashboard.css')
+    link(rel='stylesheet' href='/playlists.css')
+    link(rel='stylesheet' href='/tracks.css')
+    script(src="https://code.jquery.com/jquery-3.6.4.min.js")
+    
+=======
+    title My Spotify API app 
+    link(rel='stylesheet' href='/search.css')
+    link(rel='stylesheet', href='/dashboard.css')
+    link(rel='stylesheet' href='/playlists.css')
+    link(rel='stylesheet' href='/tracks.css')
+    link(rel='stylesheet' href='/following.css')
+    //- link(rel='stylesheet' href='/index.css')
+    script(src="https://code.jquery.com/jquery-3.6.4.min.js")    
+>>>>>>> 790f7d44753f828439571fcf1f54b054645dc358:src/layout.pug
+    link(rel='stylesheet' href='https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css')
+    link(rel='stylesheet' href='/style.css')
+    link(rel='icon', href='https://cdn-icons-png.flaticon.com/256/10477/10477524.png', type='image/x-icon')
+  
+  body
+    block navbar
+      if showNavbar !== false
+       nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .collapse.navbar-collapse#navbarNav
+          .navbar-nav.ml-auto
+            .nav-item
+              a.nav-link(href='/dashboard') Library
+            .nav-item
+              a.nav-link(href='/playlists') Playlists           
+            .nav-item
+              a.nav-link(href='/artists') Artists
+            .nav-item
+              a.nav-link(href='/map') Map
+    block content

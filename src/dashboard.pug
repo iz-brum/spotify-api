@@ -1,0 +1,96 @@
+//- views/dashboard.pug
+
+extends layout.pug
+
+block content
+   .dashboard-container
+    h1.welcome
+      | Welcome! #{user && user.display_name ? user.display_name : ''} ✨
+    ul.tracks-list
+      if tracks
+        each t in tracks
+          li.track-item
+            .track-info
+              p.selected-text Press del to delete
+              img(src=(t.track.album.images[0] && t.track.album.images[0].url) || 'URL_PADRAO', alt='Album Cover')
+              h3 #{t.track.name}
+            
+              //- Adiciona o checkbox para seleção
+              label.checkbox-container
+                input(type='checkbox', name='selectedTracks', value=t.track.id, class='hidden-checkbox')
+
+   script.
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obtém todos os elementos de classe track-item
+            var trackItems = document.querySelectorAll('.track-item');
+
+            // Restaura o estado da seleção das faixas após o recarregamento da página
+            restoreSelectedTracksState();
+
+            // Adiciona um ouvinte de evento de clique a cada elemento
+            trackItems.forEach(function (trackItem) {
+                trackItem.addEventListener('click', function () {
+                    // Alternar a classe 'selected' ao clicar
+                    this.classList.toggle('selected');
+                    // Salva o estado da seleção das faixas após cada clique
+                    saveSelectedTracksState();
+                });
+            });
+
+            // Adiciona um ouvinte de evento ao documento para verificar o botão Delete do teclado
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Delete') {
+                    deleteSelectedTracks();
+                }
+            });
+
+            function saveSelectedTracksState() {
+                // Obtém os IDs das faixas selecionadas
+                var selectedTracks = Array.from(document.querySelectorAll('.track-item.selected'))
+                    .map(function (selectedItem) {
+                        return selectedItem.querySelector('input').value;
+                    });
+
+                // Armazena os IDs das faixas selecionadas no armazenamento local
+                localStorage.setItem('selectedTracks', JSON.stringify(selectedTracks));
+            }
+
+            function restoreSelectedTracksState() {
+                // Obtém os IDs das faixas selecionadas do armazenamento local
+                var selectedTracks = JSON.parse(localStorage.getItem('selectedTracks')) || [];
+
+                // Seleciona as faixas com base nos IDs armazenados
+                selectedTracks.forEach(function (trackId) {
+                    var trackItem = document.querySelector(`.track-item input[value='${trackId}']`);
+                    if (trackItem) {
+                        trackItem.closest('.track-item').classList.add('selected');
+                    }
+                });
+            }
+
+            function deleteSelectedTracks() {
+                // Obtém os IDs das faixas selecionadas
+                var selectedTracks = Array.from(document.querySelectorAll('.track-item.selected'))
+                    .map(function (selectedItem) {
+                        return selectedItem.querySelector('input').value;
+                    });
+
+                // Envia os IDs das faixas selecionadas para a rota de exclusão
+                fetch(`/dashboard/remove-tracks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selectedTracks: selectedTracks }),
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Redireciona para a página anterior do usuário
+                        window.location.reload();
+                    } else {
+                        console.error('Falha ao excluir faixas do dashboard');
+                    }
+                })
+                .catch(error => console.error('Erro ao excluir faixas do dashboard:', error));
+            } 
+        });

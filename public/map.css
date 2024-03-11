@@ -1,0 +1,26 @@
+.mapa-js-api h1 {
+    color: #090151 !important;
+    font-size: 8vh;
+    margin-top: 59px !important;
+}
+
+.rounded-icon {
+    border-radius: 50%;
+}
+
+#output {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #00ff00;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #output h2 {
+    margin-top: 0;
+  }
+  
+  #output p {
+    margin-bottom: 0;
+  }

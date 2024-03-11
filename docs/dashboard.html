@@ -1,0 +1,105 @@
+<html>
+
+<head>
+    <title>My Spotify API app </title>
+    <link rel="stylesheet" href="/search.css" />
+    <link rel="stylesheet" href="/dashboard.css" />
+    <link rel="stylesheet" href="/playlists.css" />
+    <link rel="stylesheet" href="/tracks.css" />
+    <link rel="stylesheet" href="/following.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js">   </script>
+    <link rel="stylesheet" href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/256/10477/10477524.png" type="image/x-icon" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="navbar-nav ml-auto">
+                <div class="nav-item"><a class="nav-link" href="/dashboard">Library</a></div>
+                <div class="nav-item"><a class="nav-link" href="/playlists">Playlists</a></div>
+            </div>
+        </div>
+    </nav>
+    <div class="dashboard-container">
+        <h1 class="welcome">Welcome! ✨</h1>
+        <ul class="tracks-list"></ul>
+    </div>
+    <script>document.addEventListener('DOMContentLoaded', function () {
+            // Obtém todos os elementos de classe track-item
+            var trackItems = document.querySelectorAll('.track-item');
+
+            // Restaura o estado da seleção das faixas após o recarregamento da página
+            restoreSelectedTracksState();
+
+            // Adiciona um ouvinte de evento de clique a cada elemento
+            trackItems.forEach(function (trackItem) {
+                trackItem.addEventListener('click', function () {
+                    // Alternar a classe 'selected' ao clicar
+                    this.classList.toggle('selected');
+                    // Salva o estado da seleção das faixas após cada clique
+                    saveSelectedTracksState();
+                });
+            });
+
+            // Adiciona um ouvinte de evento ao documento para verificar o botão Delete do teclado
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Delete') {
+                    deleteSelectedTracks();
+                }
+            });
+
+            function saveSelectedTracksState() {
+                // Obtém os IDs das faixas selecionadas
+                var selectedTracks = Array.from(document.querySelectorAll('.track-item.selected'))
+                    .map(function (selectedItem) {
+                        return selectedItem.querySelector('input').value;
+                    });
+
+                // Armazena os IDs das faixas selecionadas no armazenamento local
+                localStorage.setItem('selectedTracks', JSON.stringify(selectedTracks));
+            }
+
+            function restoreSelectedTracksState() {
+                // Obtém os IDs das faixas selecionadas do armazenamento local
+                var selectedTracks = JSON.parse(localStorage.getItem('selectedTracks')) || [];
+
+                // Seleciona as faixas com base nos IDs armazenados
+                selectedTracks.forEach(function (trackId) {
+                    var trackItem = document.querySelector(`.track-item input[value='${trackId}']`);
+                    if (trackItem) {
+                        trackItem.closest('.track-item').classList.add('selected');
+                    }
+                });
+            }
+
+            function deleteSelectedTracks() {
+                // Obtém os IDs das faixas selecionadas
+                var selectedTracks = Array.from(document.querySelectorAll('.track-item.selected'))
+                    .map(function (selectedItem) {
+                        return selectedItem.querySelector('input').value;
+                    });
+
+                // Envia os IDs das faixas selecionadas para a rota de exclusão
+                fetch(`/dashboard/remove-tracks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selectedTracks: selectedTracks }),
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            // Redireciona para a página anterior do usuário
+                            window.location.reload();
+                        } else {
+                            console.error('Falha ao excluir faixas do dashboard');
+                        }
+                    })
+                    .catch(error => console.error('Erro ao excluir faixas do dashboard:', error));
+            }
+        });</script>
+</body>
+
+</html>

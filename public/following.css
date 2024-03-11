@@ -1,0 +1,52 @@
+
+/* Followers Styles */
+
+title {
+    margin-top: 190px !important;
+}
+
+/* Estiliza o container de seguidores */
+.followers-container {
+    text-align: center;
+    padding: 20px;
+}
+
+/* Lista de seguidores */
+.followers-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 150;
+}
+
+/* Item de seguidor */
+.follower-item {
+    margin: 15px;
+    text-align: center;
+}
+
+/* Imagem do seguidor */
+.follower-item img {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    margin: auto;
+}
+
+/* Nome do seguidor */
+.follower-item h3 {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #02a505;
+}
+
+/* Estilos quando não houver seguidores */
+.followers-list li {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+}

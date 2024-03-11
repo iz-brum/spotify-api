@@ -1,0 +1,114 @@
+/* public/style.css */
+/* Global Styles */
+
+
+/* Define um espaçamento no corpo da página */
+body {
+  padding: 1em 0; /* Ajuste o espaçamento vertical conforme necessário */
+  margin: 0; /* Remove a margem padrão para garantir 100% de largura */
+}
+
+
+.centered-image {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Navbar Styles */
+
+nav.navbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 10px !important;
+  background: linear-gradient(to bottom, rgb(42 55 109), #4c92e3) !important;
+  z-index: 1000 !important;
+}
+
+.collapse.navbar-collapse {
+  display: flex !important;
+  justify-content: center !important;
+  height: 70px !important;
+}
+
+/* Estilos para centralizar a barra de navegação */
+.navbar-nav {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 15px !important; /* Ajuste a margem conforme necessário */
+  text-align: center; /* Adiciona a propriedade text-align para centralizar o conteúdo */
+}
+
+.nav-link {
+  color: #ddd;
+  font-size: 40px !important;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-block; /* Garante que a nav-link respeite o text-align do nav-item */
+}
+
+.nav-link:hover {
+  color: #432655;
+  text-shadow: 2px 1px 3px antiquewhite;
+}
+
+/* Container do checkbox */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+}
+
+
+/* Estilização para a página de erro */
+.error-container {
+  background-color: #3498db; /* Cor de fundo azul */
+  color: #ffffff; /* Cor do texto branco para melhor contraste */
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar a caixa */
+}
+
+.error-container h1 {
+  margin-top: 70px !important;
+  font-size: 2em; /* Tamanho da fonte do título */
+}
+
+.error-container h2 {
+  font-size: 1.5em; /* Tamanho da fonte do subtítulo */
+}
+
+.error-container p {
+  font-size: 1.2em; /* Tamanho da fonte do texto */
+}
+
+.error-container pre {
+  font-size: 1.4em; /* Tamanho da fonte da pilha de chamadas */
+}
+
+/* PAGINA DOS ARTISTAS */
+
+.artists-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.artist-item {
+  text-align: center;
+}
+
+.artist-item img {
+  width: 100px; /* Defina a largura desejada */
+  height: 100px; /* Defina a altura desejada */
+  border-radius: 50%; /* Torna a imagem circular */
+  object-fit: cover; /* Faz com que a imagem mantenha a proporção e preencha o contêiner */
+}

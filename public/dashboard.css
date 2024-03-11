@@ -1,0 +1,204 @@
+/* public/dashboard.css */
+
+/* Global Styles */
+
+/* Define o corpo como relativo para garantir que o conteúdo interno seja posicionado corretamente */
+body {
+    position: relative;
+}
+
+/* Adiciona um elemento fixo como fundo, criando um efeito de parallax */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    background-color: #297dddd5;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Dashboard Styles */
+
+/* Container da Dashboard */
+.dashboard-container {
+    text-align: center;
+}
+
+/* Boas-vindas */
+.dashboard-container h1.welcome {
+    /* color: rgba(54, 215, 9, 0.779); */
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.709);
+}
+
+/* Container principal para o dashboard e playlists */
+.dashboard-container,
+.playlists-container {
+    text-align: center;
+    margin-top: 100px;
+}
+
+div>h1 {
+    color: #ffffff !important;
+    font-size: 9vh;
+    margin-top: 10px !important;
+}
+
+/* Estiliza a imagem do usuário como um círculo */
+.circular-image {
+    border-radius: 50%;
+    width: 13vh;
+    height: 13vh;
+    margin: auto;
+    margin-top: 5px;
+}
+
+/* Lista de faixas e playlists */
+.tracks-list,
+.playlist-list {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Estilos para itens de playlist e faixa */
+.playlist-item,
+.track-item {
+    background: #9be21627;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(0.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 50px;
+    margin: 10px;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 33px rgba(0, 0, 0, 0.22);
+}
+
+/* Estiliza links e texto dentro dos itens */
+.playlist-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+    font-size: 1em;
+    /* Define o tamanho da fonte inicialmente */
+    line-height: 1.2;
+    /* Define a altura da linha */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Número máximo de linhas */
+    -webkit-box-orient: vertical;
+    text-align: center;
+}
+
+.track-item a,
+.playlist-item h3 {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Informações sobre a faixa */
+.track-info {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Imagem da faixa */
+.track-info img {
+    width: 99%;
+    height: auto;
+    border-radius: 6%;
+}
+
+/* Preview da faixa */
+.track-preview a {
+    display: block;
+    margin-top: 5px;
+}
+
+/* Texto dentro da faixa */
+.track-info span {
+    white-space: normal;
+    color: rgb(0, 0, 0);
+}
+
+/* Nome da faixa e link para recomendação */
+.track-name,
+.track-info a {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #07751b;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    height: auto;
+}
+
+/* Nome do artista */
+.artist-name {
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+
+.track-info h3 {
+    white-space: nowrap;
+    /* Impede a quebra de linha */
+    overflow: hidden;
+    /* Impede que o texto transborde */
+    text-overflow: ellipsis;
+    /* Adiciona reticências (...) se o texto for cortado */
+    max-width: 298px;
+    /* Largura máxima desejada, ajuste conforme necessário */
+    margin: 0 auto;
+    /* Centraliza o texto horizontalmente */
+    margin-top: 10px;
+    /* Ajusta o espaçamento conforme necessário */
+}
+
+.hidden-checkbox {
+    display: none;
+}
+
+/* Estilos para os itens de faixa */
+.track-item {
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    color: #000;
+}
+
+/* Estilos quando uma faixa está selecionada */
+.track-item.selected {
+    background-color: rgba(139, 0, 0, 0.73);
+    color: #fff;
+}
+
+/* Esconde o texto por padrão */
+.track-item p.selected-text {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Exibe o texto apenas quando o item está selecionado */
+.track-item.selected p.selected-text {
+    display: block;
+    color: #fff;
+    font-weight: bold;
+    margin-top: -24px; /* Adicione uma margem para separar o texto */
+}

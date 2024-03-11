@@ -1,0 +1,19 @@
+//- error.pug
+
+extends layout.pug
+
+block content
+  .error-container
+    h1 Error
+    p Something went wrong. Please try again later.
+
+    if error
+      h2 Error Details
+      p #{error.message}
+
+      if error.status
+        p Status Code: #{error.status}
+
+      if error.stack
+        h3 Stack Trace
+        pre #{error.stack}

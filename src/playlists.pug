@@ -1,0 +1,16 @@
+//- views/playlists.pug
+
+extends layout.pug
+
+block content
+    .playlists-container
+        h1 Your Playlists
+        ul.playlist-list
+            if playlists
+                each playlist in playlists
+                    li.playlist-item.track-item
+                        a(href=`/playlists/${playlist.id}`)
+                            if playlist.images && playlist.images.length > 0
+                                img(src=playlist.images[0].url, alt='Playlist Image', class='centered-image')
+                            .track-info.playlist-info
+                                h3.playlist-name #{playlist.name}

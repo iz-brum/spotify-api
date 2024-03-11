@@ -1,0 +1,18 @@
+//- views/artists.pug
+extends layout.pug
+
+block content
+    h1(style='margin-top: 77; font-size: 60px; ') Popular Artists
+    - let artistsWithImages = 0
+    - let artistsWithoutImages = 0
+    ul.artists-grid
+        each artist, index in artists
+            li.artist-item
+                if artist.images && artist.images.length > 0
+                    - artistsWithImages++
+                    img(src=artist.images[0].url, alt=artist.name)
+                
+                p= index + 1 + ". " + artist.name
+
+    p Total artists with images: #{artistsWithImages}
+    p Total artists without images: #{artistsWithoutImages}

@@ -1,0 +1,26 @@
+{
+  "name": "spotify-node-app",
+  "version": "0.0.1",
+  "description": "Spotify example node app",
+  "main": "index.js",
+  "scripts": {
+<<<<<<< HEAD
+    "start": "nodemon index.js"
+=======
+    "start": "node index.js",
+    "compile-pug": "pug src -o docs"
+>>>>>>> 790f7d44753f828439571fcf1f54b054645dc358
+  },
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "esm": "^3.2.25",
+    "express": "^4.18.3",
+    "node-fetch": "^3.3.2",
+    "pug": "^3.0.2"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

@@ -1,0 +1,91 @@
+<html><head><title>My Spotify API app </title><link rel="stylesheet" href="/search.css"/><link rel="stylesheet" href="/dashboard.css"/><link rel="stylesheet" href="/playlists.css"/><link rel="stylesheet" href="/tracks.css"/><link rel="stylesheet" href="/following.css"/><script src="https://code.jquery.com/jquery-3.6.4.min.js">   </script><link rel="stylesheet" href="https://sp-bootstrap.global.ssl.fastly.net/8.0.0/sp-bootstrap.min.css"/><link rel="stylesheet" href="/style.css"/><link rel="icon" href="https://cdn-icons-png.flaticon.com/256/10477/10477524.png" type="image/x-icon"/></head><body><nav class="navbar navbar-expand-lg navbar-light bg-light"><div class="collapse navbar-collapse" id="navbarNav"><div class="navbar-nav ml-auto"><div class="nav-item"><a class="nav-link" href="/dashboard">Library</a></div><div class="nav-item"><a class="nav-link" href="/playlists">Playlists</a></div></div></div></nav><div class="search-container"> <input type="text" placeholder="Pesquisar música" id="search-query" autocomplete="off"/><button type="submit" id="search-button">Pesquisar</button><ul id="history-dropdown"></ul></div><ul class="results-list"></ul><script>document.addEventListener("DOMContentLoaded", () => {
+  const searchQueryInput = document.getElementById("search-query");
+  const historyDropdown = document.getElementById("history-dropdown");
+
+  // Adiciona um ouvinte de redimensionamento para atualizar a posição do dropdown
+  window.addEventListener("resize", () => {
+    positionDropdown();
+  });
+
+  const handleSearch = () => {
+    const query = searchQueryInput.value.trim(); // Remove espaços em branco no início e no final;
+
+    if (query) {
+      // Recupere ou inicialize o histórico de pesquisas
+      const searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+      // Adicione a nova consulta ao histórico, removendo duplicatas
+      const updatedHistory = [query, ...searchHistory.filter(item => item !== query)].slice(0, 5);
+
+      // Atualize o histórico no armazenamento local
+      localStorage.setItem("searchHistory", JSON.stringify(updatedHistory));
+    }
+    // Redirecione para a página de pesquisa
+    window.location.href = `/search?query=${query}`;
+  };
+
+  const showHistory = () => {
+    const searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+    // Filtrar valores vazios
+    const nonEmptyHistory = searchHistory.filter(item => item.trim() !== '');
+
+    // Limpar o dropdown de histórico
+    historyDropdown.innerHTML = '';
+
+    // Adicionar itens ao dropdown
+    nonEmptyHistory.forEach((item) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = item;
+      listItem.addEventListener('click', () => {
+        searchQueryInput.value = item;
+        handleSearch();
+      });
+
+      // Adicionar ao dropdown
+      historyDropdown.appendChild(listItem);
+    });
+
+    // Exibir o dropdown
+    historyDropdown.style.display = searchHistory.length > 0 ? 'block' : 'none';
+
+    // Posicionar o dropdown
+    positionDropdown();
+  };
+
+  const positionDropdown = () => {
+    // Obter as coordenadas do input de pesquisa
+    const rect = searchQueryInput.getBoundingClientRect();
+
+    // Configurar a posição do dropdown
+    historyDropdown.style.left = `${rect.left}px`;
+    historyDropdown.style.top = `${rect.bottom}px`;
+    historyDropdown.style.width = `${rect.width}px`;
+  };
+
+  // Adiciona ouvintes de eventos
+  document.getElementById("search-button").addEventListener("click", handleSearch);
+
+  searchQueryInput.addEventListener("input", () => {
+    const query = searchQueryInput.value;
+    if (query.length > 0) {
+      historyDropdown.style.display = 'none';
+    } else {
+      showHistory();
+    }
+  });
+
+  searchQueryInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  });
+
+  searchQueryInput.addEventListener("focus", showHistory);
+
+  searchQueryInput.addEventListener("blur", () => {
+    setTimeout(() => {
+      historyDropdown.style.display = 'none';
+    }, 200);
+  });
+});</script></body></html>

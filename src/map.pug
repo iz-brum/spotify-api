@@ -1,0 +1,12 @@
+extends layout.pug
+
+block content
+  html
+    head
+      title Mapa
+      script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCohdtFvRlM--XXucFFfsNvp2Hqkc3Mkg4")
+      script(src="/js/map.js")
+      
+    body(onload="initMap()")    
+      .mapa-js-api       
+      #map(style="height: 100vh; width: 100%")
